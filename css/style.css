@@ -20,6 +20,3 @@ section.row{
     width: calc(100% / 10);
 }
 
-.grid-cell.active{
-    background-color: red;
-}

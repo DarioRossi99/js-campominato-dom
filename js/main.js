@@ -24,18 +24,21 @@ function generatoreGriglia(numeroCelle){
         // cellaSelezionata.addEventListener ("click")
         const cellaSelezionata = document.createElement("div");
 
-        cellaSelezionata.classList.add("grid-cell")
+        cellaSelezionata.classList.add("grid-cell");
+        cellaSelezionata.dataset.cella = i 
         cellaSelezionata.style.flexBasis = 'calc(100% / ${numeroCelle})';
         cellaSelezionata.style.width = 'calc(100% / ${numeroCelle})';
         cellaSelezionata.dataset.generatoreGriglia = 1 + i;
 
-        cellaSelezionata.addEventListener("click", onCellaSelezionata);
+        cellaSelezionata.addEventListener("click", selezionata);
 
         cellaSelezionata.addEventListener("click", function(){
 
             this.classList.toggle("bg-info");
 
-            console.log("hai cliccato il " + i)
+            const cella = this.dataset.cella;
+
+            console.log("hai cliccato il " + cella)
         })
 
         containerGriglia.append(cellaSelezionata);
@@ -50,13 +53,11 @@ function generatoreGriglia(numeroCelle){
  * 
  * @this {HTMLElement}
  */
- function onCellaSelezionata() {
+function selezionata() {
 
-    this.classList.toggle("active");
+    const generatoreGriglia = +this.dataset.cella;
 
-    const generatoreGriglia = +this.dataset.generatoreGriglia;
-
-    if ( bombe.includes( onCellaSelezionata )){
+    if ( listaBombe.includes( this.dataset.cella )){
         alert("Belin hai preso una mina");
     }
 
@@ -71,13 +72,14 @@ function generatoreNumeriRandom(min, max){
     return Math. floor( Math. random() * ( max - min + 1 ) ) + min;
 }
 
+const listaBombe = [];
 /**
  * 
  * @param {number} celleTotali
  * @return {arrey} 
  */
 function generatoreListaBombe( celleTotali ){
-    const listaBombe = [];
+
 
     while (listaBombe.length < 16) {
         const num = generatoreNumeriRandom(1, celleTotali);
