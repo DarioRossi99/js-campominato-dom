@@ -30,15 +30,25 @@ function generatoreGriglia(numeroCelle){
         cellaSelezionata.style.width = 'calc(100% / ${numeroCelle})';
         cellaSelezionata.dataset.generatoreGriglia = 1 + i;
 
-        cellaSelezionata.addEventListener("click", selezionata);
-
         cellaSelezionata.addEventListener("click", function(){
 
             this.classList.toggle("bg-info");
 
-            const cella = this.dataset.cella;
+            const cella = parseInt (this.dataset.cella);
+            
 
-            console.log("hai cliccato il " + cella)
+            console.log(typeof cella);
+
+            const bombe = selezionata(cella);
+
+            if(bombe){
+                this.classList.toggle("bg-danger"); 
+                alert("Belin hai preso una mina");
+            }else{
+                
+            }
+
+            console.log("hai cliccato il " + cella + " è una bomba?" + bombe)
         })
 
         containerGriglia.append(cellaSelezionata);
@@ -46,20 +56,23 @@ function generatoreGriglia(numeroCelle){
     }
 
     
-       
+    
 }
 
-/**
- * 
- * @this {HTMLElement}
- */
-function selezionata() {
 
-    const generatoreGriglia = +this.dataset.cella;
+function selezionata(cellaSelezionata) {
 
-    if ( listaBombe.includes( this.dataset.cella )){
-        alert("Belin hai preso una mina");
+    console.log(listaBombe)
+
+    if ( listaBombe.includes( cellaSelezionata )){
+        console.log("trovato " , cellaSelezionata);
+        return true;
+    }else{
+        console.log("caso non trovato " , cellaSelezionata);
+        return false;
     }
+
+    
 
 }
 
